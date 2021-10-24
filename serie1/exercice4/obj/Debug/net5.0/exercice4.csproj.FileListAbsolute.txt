@@ -1,0 +1,16 @@
+C:\dev\code\dotnet\workspace\serie1\exercice4\obj\Debug\net5.0\exercice4.csproj.AssemblyReference.cache
+C:\dev\code\dotnet\workspace\serie1\exercice4\obj\Debug\net5.0\exercice4.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\code\dotnet\workspace\serie1\exercice4\obj\Debug\net5.0\exercice4.AssemblyInfoInputs.cache
+C:\dev\code\dotnet\workspace\serie1\exercice4\obj\Debug\net5.0\exercice4.AssemblyInfo.cs
+C:\dev\code\dotnet\workspace\serie1\exercice4\obj\Debug\net5.0\exercice4.csproj.CoreCompileInputs.cache
+C:\dev\code\dotnet\workspace\serie1\exercice4\bin\Debug\net5.0\exercice4.exe
+C:\dev\code\dotnet\workspace\serie1\exercice4\bin\Debug\net5.0\exercice4.deps.json
+C:\dev\code\dotnet\workspace\serie1\exercice4\bin\Debug\net5.0\exercice4.runtimeconfig.json
+C:\dev\code\dotnet\workspace\serie1\exercice4\bin\Debug\net5.0\exercice4.runtimeconfig.dev.json
+C:\dev\code\dotnet\workspace\serie1\exercice4\bin\Debug\net5.0\exercice4.dll
+C:\dev\code\dotnet\workspace\serie1\exercice4\bin\Debug\net5.0\ref\exercice4.dll
+C:\dev\code\dotnet\workspace\serie1\exercice4\bin\Debug\net5.0\exercice4.pdb
+C:\dev\code\dotnet\workspace\serie1\exercice4\obj\Debug\net5.0\exercice4.dll
+C:\dev\code\dotnet\workspace\serie1\exercice4\obj\Debug\net5.0\ref\exercice4.dll
+C:\dev\code\dotnet\workspace\serie1\exercice4\obj\Debug\net5.0\exercice4.pdb
+C:\dev\code\dotnet\workspace\serie1\exercice4\obj\Debug\net5.0\exercice4.genruntimeconfig.cache

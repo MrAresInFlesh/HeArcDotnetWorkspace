@@ -1,0 +1,16 @@
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\bin\Debug\net5.0\Exercice1.exe
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\bin\Debug\net5.0\Exercice1.deps.json
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\bin\Debug\net5.0\Exercice1.runtimeconfig.json
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\bin\Debug\net5.0\Exercice1.runtimeconfig.dev.json
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\bin\Debug\net5.0\Exercice1.dll
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\bin\Debug\net5.0\ref\Exercice1.dll
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\bin\Debug\net5.0\Exercice1.pdb
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\obj\Debug\net5.0\Exercice1.csproj.AssemblyReference.cache
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\obj\Debug\net5.0\Exercice1.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\obj\Debug\net5.0\Exercice1.AssemblyInfoInputs.cache
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\obj\Debug\net5.0\Exercice1.AssemblyInfo.cs
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\obj\Debug\net5.0\Exercice1.csproj.CoreCompileInputs.cache
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\obj\Debug\net5.0\Exercice1.dll
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\obj\Debug\net5.0\ref\Exercice1.dll
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\obj\Debug\net5.0\Exercice1.pdb
+C:\dev\code\dotnet\workspace\serie1\exercice1\Exercice1\obj\Debug\net5.0\Exercice1.genruntimeconfig.cache
