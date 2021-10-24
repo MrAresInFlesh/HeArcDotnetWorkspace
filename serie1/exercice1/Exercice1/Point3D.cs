@@ -18,7 +18,7 @@ struct Point3D
     /// </summary>
     /// <param name="p1">A Point3D we want to swap coordinates with the second parameter</param>
     /// <param name="p2">A Point3D we want to swap coordinates with the first parameter</param>
-    /// <returns>A list containing the two swapped Point3D</returns>
+    /// <returns>A tupple containing the two swapped Point3D</returns>
     public static (Point3D p1, Point3D p2) SwapPoints(Point3D p1, Point3D p2)
     {
         return (new Point3D(p2.x, p2.y, p2.z, p1.name), new Point3D(p1.x, p1.y, p1.z, p2.name));

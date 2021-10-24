@@ -2,104 +2,132 @@ using System;
 
 namespace exercice1
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum CellState
     {
-        E = (' ', true)
-        X = ('X', false)
-        O = ('O', false)
+        E = ' ',
+        X = 'X',
+        O = 'O'
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public struct Cell
     {
-        private CellState state;
+        private CellState cellState;
 
-        public Cell()
+        public Cell(CellState cellState)
         {
-            state = Morp.E;
+            this.cellState = cellState;
         }
 
-        public CellState getCellState()
+        public CellState GetCellState()
         {
-            return state;
+            return this.cellState;
         }
 
-        public void SetCellState()
+        public void SetCellState(CellState cellState)
         {
-            if(this.state == CellState.E)
+            if(this.cellState == CellState.E)
             {
-                if()
+                this.cellState = cellState;
             }
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class Board
     {
-        public int[,] Board;
-        private int size;
+        public Cell[,] boardGame { get; set; }
+        private int boardSize;
 
         /// <summary>
         /// 
         /// </summary>
-        public GameBoard(int size)
+        public Board(int size)
         {
-            InitializeBoard();
+            this.boardSize = size;
+            InitializeBoard(this.boardSize);
         }
 
-        /**
-        Initialize Board - set board fields as empty
-            */
+        public int size()
+        {
+            return this.boardSize;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="size"></param>
         private void InitializeBoard(int size)
         {
-            Board = new Cell[size, BOARD_SIZE];
-            for (int i = 0; i < Board.Length; i++)
+            this.boardGame = new Cell[size, size];
+            for (int i = 0; i < size; i++)
             {
-                for (int j = 0; j < Board.Length; j++)
+                for (int j = 0; j < size; j++)
                 {
-                    Board[i, j] = new Cell();
+                    this.boardGame[i, j] = new Cell(CellState.E);
                 }
             }
         }
 
-        public void PrintBoard()
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Display()
         {
-            const int ASCII_CODE_0 = 48;
-            int fieldNumber = 1;
-            Console.WriteLine("-----");
-            for (int i = 0; i < BOARD_SIZE; i++)
+            Console.Write(" ");
+            for (int i = 0; i < this.boardSize; i++)
             {
-                for (int j = 0; j < BOARD_SIZE; j++)
+                Console.Write("======");
+            }
+            Console.Write("\n");
+            for (int i = 0; i < this.boardSize; i++)
+            {
+                Console.Write(" |");
+                for (int j = 0; j < this.boardSize; j++)
                 {
-                    if (Board[i, j].isEmpty())
-                        Console.Write((char)(ASCII_CODE_0 + fieldNumber));
-                    else
-                        Console.Write((char)(Board[i, j].getFieldState()));
-                    fieldNumber++;
-
-                    if (j < BOARD_SIZE - 1)
+                    Console.Write("  " + (char)(this.boardGame[i, j].GetCellState()) + "  ");
+                    if (j <= this.boardSize - 1)
                     {
                         Console.Write("|");
                     }
                 }
-                Console.Write("\n");
+                Console.Write("\n |");
+                for (int k = 0; k < this.boardSize - 1; k++)
+                {
+                    Console.Write("-----+");
+                }
+                Console.Write("-----|\n");
             }
-            Console.WriteLine("-----");
+            Console.Write(" ");
+            for (int i = 0; i < this.boardSize; i++)
+            {
+                Console.Write("======");
+            }
+            Console.Write("\n");
         }
 
-        public void PutMark(Player player, int fieldNumber)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="fieldNumber"></param>
+        public void PutMark(CellState cellState, (int i, int j) coord)
         {
-
-            int verticalY = (fieldNumber - 1) / 3;
-            int horizontalX = (fieldNumber - 1) % 3;
-            if (Board[verticalY, horizontalX].isEmpty())
+            if (this.boardGame[coord.i, coord.j].GetCellState() == CellState.E)
             {
-                Board[verticalY, horizontalX].markField(player);
-
+                this.boardGame[coord.i, coord.j].SetCellState(cellState);
             }
-
             else
             {
                 Console.WriteLine("This place is taken. Select the field again: ");
-                putMark(player, player.takeTurn());
+                this.PutMark(cellState, Player.play());
             }
         }
 

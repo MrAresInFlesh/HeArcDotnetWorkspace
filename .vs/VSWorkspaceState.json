@@ -1,10 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\app",
     "\\serie1",
-    "\\serie1\\exercice1\\Exercice1"
+    "\\serie1\\exercice1",
+    "\\serie1\\exercice1\\Exercice1",
+    "\\serie2",
+    "\\serie2\\exercice1"
   ],
-  "SelectedNode": "\\serie1\\exercice5",
+  "SelectedNode": "\\serie2\\exercice1\\SceneRenderer.cs",
   "PreviewInSolutionExplorer": false
 }

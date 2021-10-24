@@ -15,11 +15,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\dev\\code\\dotnet\\workspace\\serie2\\exercice1\\exercice1.csproj",
+      "projectUniqueName": "C:\\dev\\code\\dotnet\\HeArcDotnetWorkspace\\serie2\\exercice1\\exercice1.csproj",
       "projectName": "exercice1",
-      "projectPath": "C:\\dev\\code\\dotnet\\workspace\\serie2\\exercice1\\exercice1.csproj",
+      "projectPath": "C:\\dev\\code\\dotnet\\HeArcDotnetWorkspace\\serie2\\exercice1\\exercice1.csproj",
       "packagesPath": "C:\\Users\\simon.meier\\.nuget\\packages\\",
-      "outputPath": "C:\\dev\\code\\dotnet\\workspace\\serie2\\exercice1\\obj\\",
+      "outputPath": "C:\\dev\\code\\dotnet\\HeArcDotnetWorkspace\\serie2\\exercice1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
