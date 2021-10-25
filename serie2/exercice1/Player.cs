@@ -5,19 +5,14 @@ namespace exercice1
     
     public class Player
     {
-        private string name;
+        public string name { get; }
         private int score = 0;
+        private CellState cellState;
 
-        public Player(string name)
+        public Player(string name, CellState cellState)
         {
             this.name = name;
-        }
-
-        public static (int, int) play()
-        {
-            int cellInputI = int.Parse(Console.ReadLine());
-            int cellInputJ = int.Parse(Console.ReadLine());
-            return (cellInputI, cellInputJ);
+            this.cellState = cellState;
         }
 
         public int GetScore()
@@ -28,6 +23,11 @@ namespace exercice1
         public void SetScore(int value)
         {
             this.score = value;
+        }
+
+        public CellState GetCellState()
+        {
+            return this.cellState;
         }
     }
 }

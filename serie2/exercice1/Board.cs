@@ -55,7 +55,7 @@ namespace exercice1
             InitializeBoard(this.boardSize);
         }
 
-        public int size()
+        public int Size()
         {
             return this.boardSize;
         }
@@ -123,11 +123,13 @@ namespace exercice1
             if (this.boardGame[coord.i, coord.j].GetCellState() == CellState.E)
             {
                 this.boardGame[coord.i, coord.j].SetCellState(cellState);
+                Display();
             }
             else
             {
-                Console.WriteLine("This place is taken. Select the field again: ");
-                this.PutMark(cellState, Player.play());
+                Console.WriteLine("This place is taken. Select the field again: \n");
+                this.PutMark(cellState, coord);
+                Display();
             }
         }
 

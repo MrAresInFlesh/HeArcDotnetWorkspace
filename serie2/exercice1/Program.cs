@@ -6,8 +6,7 @@ namespace exercice1
     {
         static void Main(string[] args)
         {
-            Board board = new Board(3);
-            board.Display();
+            SceneRenderer scene = new SceneRenderer();
         }
     }
 }
