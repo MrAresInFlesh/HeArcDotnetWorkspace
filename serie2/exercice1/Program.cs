@@ -6,7 +6,7 @@ namespace exercice1
     {
         static void Main(string[] args)
         {
-            SceneRenderer scene = new SceneRenderer();
+            Game scene = new Game();
         }
     }
 }

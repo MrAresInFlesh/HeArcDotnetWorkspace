@@ -118,18 +118,17 @@ namespace exercice1
         /// </summary>
         /// <param name="player"></param>
         /// <param name="fieldNumber"></param>
-        public void PutMark(CellState cellState, (int i, int j) coord)
+        public bool PutMark(CellState cellState, (int i, int j) coord)
         {
             if (this.boardGame[coord.i, coord.j].GetCellState() == CellState.E)
             {
                 this.boardGame[coord.i, coord.j].SetCellState(cellState);
-                Display();
+                return true;
             }
             else
             {
                 Console.WriteLine("This place is taken. Select the field again: \n");
-                this.PutMark(cellState, coord);
-                Display();
+                return false;
             }
         }
 
