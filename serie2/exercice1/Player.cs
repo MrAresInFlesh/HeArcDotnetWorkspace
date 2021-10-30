@@ -2,7 +2,9 @@ using System;
 
 namespace exercice1
 {
-    
+    /// <summary>
+    /// Simple class to represent a player object.
+    /// </summary>
     public class Player
     {
         public string name { get; }
@@ -22,7 +24,7 @@ namespace exercice1
 
         public void SetScore(int value)
         {
-            this.score = value;
+            this.score += value;
         }
 
         public CellState GetCellState()

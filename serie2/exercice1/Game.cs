@@ -6,9 +6,12 @@ namespace exercice1
     {
         private Board board;
         private Player a_player, b_player;
-        private Boolean gameOver;
+        private Boolean gameOver, victory;
         private int turn;
 
+        /// <summary>
+        /// Main class that contains the logic behind the tictactoe game.
+        /// </summary>
         public Game()
         {
             Welcome();
@@ -19,57 +22,95 @@ namespace exercice1
 
         public void Welcome()
         {
-            Console.WriteLine("#############################################################");
-            Console.WriteLine("         WELCOME TO THIS TICTACTOE GAME IN C# !");
-            Console.WriteLine("#############################################################");
+            Console.WriteLine("     #############################################################");
+            Console.WriteLine("                 WELCOME TO THIS TICTACTOE GAME IN C# !");
+            Console.WriteLine("     #############################################################");
         }
 
         public void InitializePlayers()
         {
-            Console.WriteLine("Enter name of player 1 :");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("     |\n     |       Enter name of player 1 : ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
             string name = Console.ReadLine().ToString();
             this.a_player = new Player(name, CellState.O);
-            Console.WriteLine("Hello " + this.a_player.name + "! \n");
-
-            Console.WriteLine("Enter name of player 2 :");
+            Console.WriteLine("     |       Hello " + this.a_player.name + " !");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("     |\n     |       Enter name of player 2 : ");
+            Console.ForegroundColor = ConsoleColor.Green;
             name = Console.ReadLine().ToString();
             this.b_player = new Player(name, CellState.X);
-            Console.WriteLine("Hello " + this.b_player.name + "! \n");
+            Console.WriteLine("     |       Hello " + this.b_player.name + " !");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void InitializeBoard()
         {
-            Console.WriteLine("\n   |        Enter the size of Tic Tac Toe board :");
-            int size = int.Parse(Console.ReadLine());
-            this.board = new Board(size);
+            Console.ForegroundColor = ConsoleColor.Blue;
+            int size = 0;
+            Console.Write("     |       Enter the size of Tic Tac Toe board [3~20]! :");
+            size = int.Parse(Console.ReadLine());
+            while (size > 20) 
+            {
+                Console.Write("     |       Enter the size of Tic Tac Toe board [3~20]! :");
+                size = int.Parse(Console.ReadLine());
+            }
+            this.board = new Board(size); 
             this.board.Display();
         }
 
+        /// <summary>
+        /// Main Loop
+        /// While the game continue, it should not end. (lol)
+        /// </summary>
         public void PlayGame()
         {
-            this.turn = 1;
-            this.gameOver = false;
             while(!this.gameOver)
             {
-                bool checkCoord = false;
-                if(this.turn % 2 == 0)
+                this.turn = 1;
+                this.victory = false;
+                while (!this.victory)
                 {
-                    Console.WriteLine("     | ------------------------------------------------------------------------------------------------");
-                    Console.WriteLine("     | Player " + this.b_player.name + " can play.");
-                    Console.WriteLine("     | Enter coordinates in the form of (x, y) to play :");
-                    while(!checkCoord) checkCoord = this.board.PutMark(b_player.GetCellState(), Play());
+                    bool checkCoord = false;
+                    if (this.turn % 2 == 0)
+                    {
+                        Console.WriteLine("     | ------------------------------------------------------------------------------------------------");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("     | " + this.b_player.name + " can play.");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("     | Enter coordinates in the form of (x, y) to play :");
+                        while (!checkCoord) checkCoord = this.board.PutMark(b_player.GetCellState(), Play());
+                    }
+                    else
+                    {
+                        Console.WriteLine("     | ------------------------------------------------------------------------------------------------");
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("     | " + this.a_player.name + " can play.");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("     | Enter coordinates in the form of (x, y) to play : ");
+                        while (!checkCoord) checkCoord = this.board.PutMark(a_player.GetCellState(), Play());
+                    }
+                    this.victory = Update();
                 }
-                else
+                Console.WriteLine("     | ------------------------------------------------------------------------------------------------");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("     | " + this.a_player.name + " Score : " + this.a_player.GetScore());
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("     | " + this.b_player.name + " Score : " + this.b_player.GetScore());
+                Console.ForegroundColor = ConsoleColor.White;
+                EndGame();
+                if (!this.gameOver)
                 {
-                    Console.WriteLine("     | ------------------------------------------------------------------------------------------------");
-                    Console.WriteLine("     | Player " + this.b_player.name + " can play.");
-                    Console.WriteLine("     | Enter coordinates in the form of (x, y) to play : ");
-                    while(!checkCoord) checkCoord = this.board.PutMark(a_player.GetCellState(), Play());
+                    InitializeBoard();
                 }
-                this.gameOver = Update();
             }
         }
 
+        /// <summary>
+        /// Called to play each turn for players.
+        /// </summary>
+        /// <returns></returns>
         private (int, int) Play()
         {
             //works as well : (int cellInputI, int cellInputJ) = (int.Parse(Console.ReadLine()), int.Parse(Console.ReadLine()));
@@ -96,14 +137,35 @@ namespace exercice1
             else return Play();
         }
 
+        /// <summary>
+        /// To end the game manually after a game.
+        /// </summary>
         public void EndGame()
         {
-            Console.WriteLine("\n       | Press [q] to quit");
-            if(Console.KeyAvailable)
+            Console.Write("\n     | Press [q] to quit, or any other [key] to continue : ");
+            if (Console.ReadKey().Key == ConsoleKey.Q)
             {
-                if (Console.ReadKey().Key == ConsoleKey.Q)
                 this.gameOver = true;
+                this.victory = true;
             }
+            Console.Clear();
+            Console.WriteLine("     | ------------------------------------------------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("     | " + this.a_player.name + " Score : " + this.a_player.GetScore());
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("     | " + this.b_player.name + " Score : " + this.b_player.GetScore());
+            Console.ForegroundColor = ConsoleColor.White;
+            if (this.a_player.GetScore() < this.b_player.GetScore())
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("     | " + this.a_player.name + ", you loser.");
+            }
+            if (this.a_player.GetScore() > this.b_player.GetScore())
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("     | " + this.b_player.name + " ==  stupid stupid.");
+            }
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         /// <summary>
@@ -113,10 +175,10 @@ namespace exercice1
         public bool Update()
         {
             board.Display();
-            if(EndGameDraw(this.board)) return this.gameOver = true;
-            if(EndGameColumns(this.board)) return this.gameOver = true;
-            else if(EndGameDiagonals(this.board)) return this.gameOver = true;
-            else if(EndGameRows(this.board)) return this.gameOver = true;
+            if(EndGameDraw(this.board)) return this.victory = true;
+            if(EndGameColumns(this.board)) return this.victory = true;
+            else if(EndGameDiagonals(this.board)) return this.victory = true;
+            else if(EndGameRows(this.board)) return this.victory = true;
             else return false;
         }
 
@@ -132,7 +194,7 @@ namespace exercice1
             {
                 if (cell.GetCellState() == CellState.E)
                 {
-                    Console.WriteLine(cell.GetCellState().ToString());
+                    // debug: Console.WriteLine(cell.GetCellState().ToString());
                     check = false;
                     break;
                 }
@@ -166,14 +228,14 @@ namespace exercice1
                         if (board.boardGame[j, i].GetCellState() != CellState.E && board.boardGame[j, i].GetCellState() == CellState.X)
                         {
                             xCounter++;
-                            Console.WriteLine("x counter : " + xCounter);
+                            // Console.WriteLine("x counter : " + xCounter);
                         }
                         // debug : Console.WriteLine(board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.O);
                         if (board.boardGame[j, i].GetCellState() != CellState.E &&
                             board.boardGame[j, i].GetCellState() == CellState.O)
                         {
                             oCounter++;
-                            Console.WriteLine("o counter : " + oCounter);
+                            // Console.WriteLine("o counter : " + oCounter);
                         }
                     }
                     else if(j+1 < this.board.Size())
@@ -184,18 +246,26 @@ namespace exercice1
                             board.boardGame[j, i].GetCellState() == CellState.X)
                         {
                             xCounter++;
-                            Console.WriteLine("x counter : " + xCounter);
+                            // Console.WriteLine("x counter : " + xCounter);
                         }
                         // debug : Console.WriteLine(board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.O);
                         if (board.boardGame[j, i].GetCellState() != CellState.E && board.boardGame[j, i].GetCellState() == CellState.O)
                         {
                             oCounter++;
-                            Console.WriteLine("o counter : " + oCounter);
+                            // Console.WriteLine("o counter : " + oCounter);
                         }
                     }
                     else check = false;
-                    if (oCounter >= this.board.Size()) check = true;
-                    if (xCounter >= this.board.Size()) check = true;
+                    if (oCounter >= this.board.Size())
+                    {
+                        check = true;
+                        this.a_player.SetScore(1);
+                    }
+                    if (xCounter >= this.board.Size())
+                    {
+                        check = true;
+                        this.b_player.SetScore(1);
+                    }
                 }
                 // Console.WriteLine("Check : " + check);
             }
@@ -250,30 +320,54 @@ namespace exercice1
                         }
                     }
                     else check = false;
-                    if (oCounter >= this.board.Size()) check = true;
-                    if (xCounter >= this.board.Size()) check = true;
+                    if (oCounter >= this.board.Size())
+                    {
+                        check = true;
+                        this.a_player.SetScore(1);
+                    }
+                    if (xCounter >= this.board.Size())
+                    {
+                        check = true;
+                        this.b_player.SetScore(1);
+                    }
                 }
                 // Console.WriteLine("Check : " + check);
             }
             return check;
         }
 
+        /// <summary>
+        /// Check if either player has a full diagonal of its symbol.
+        /// </summary>
+        /// <param name="board"></param>
+        /// <returns></returns>
         public bool EndGameDiagonals(Board board)
         {
+            int xCounter = 0;
+            int oCounter = 0;
             bool check = false;
             for (int i = 0, j = 0; i < board.Size()-1; i++, j++)
             {
                 if (board.boardGame[i, j].GetCellState() != CellState.E && 
-                    board.boardGame[i, j].GetCellState() == board.boardGame[i+1, j+1].GetCellState())
+                    board.boardGame[i, j].GetCellState() == CellState.X)
                 {
-                    Console.WriteLine("Diagonal win");
-                    check = true;
+                    xCounter ++;
                 }
-                else 
+                if (board.boardGame[i, j].GetCellState() != CellState.E &&
+                    board.boardGame[i, j].GetCellState() == CellState.O)
                 {
-                    check = false;
-                    break;
+                    oCounter++;
                 }
+            }
+            if (oCounter >= this.board.Size())
+            {
+                check = true;
+                this.a_player.SetScore(1);
+            }
+            if (xCounter >= this.board.Size())
+            {
+                check = true;
+                this.b_player.SetScore(1);
             }
             return check;
         }

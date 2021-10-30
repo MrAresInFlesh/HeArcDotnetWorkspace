@@ -3,7 +3,7 @@ using System;
 namespace exercice1
 {
     /// <summary>
-    /// 
+    /// Enum to represent the state of a "square" in the table of tictactoe game.
     /// </summary>
     public enum CellState
     {
@@ -13,7 +13,8 @@ namespace exercice1
     }
 
     /// <summary>
-    /// 
+    /// Cell struct to be used in a board object.
+    /// This is just a simple container which will be stored in a [,] array.
     /// </summary>
     public struct Cell
     {
@@ -39,7 +40,8 @@ namespace exercice1
     }
 
     /// <summary>
-    /// 
+    /// Board class to manipulate the tictactoe board.
+    /// Nothing out of the ordinary here.
     /// </summary>
     public class Board
     {
@@ -61,7 +63,7 @@ namespace exercice1
         }
 
         /// <summary>
-        /// 
+        /// Initializing each square of the board with a cell.
         /// </summary>
         /// <param name="size"></param>
         private void InitializeBoard(int size)
@@ -77,19 +79,20 @@ namespace exercice1
         }
 
         /// <summary>
-        /// 
+        /// Just the display of the board in the console.
         /// </summary>
         public void Display()
         {
-            Console.Write(" ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("            ");
             for (int i = 0; i < this.boardSize; i++)
             {
                 Console.Write("======");
             }
-            Console.Write("\n");
+            Console.Write("\n           ");
             for (int i = 0; i < this.boardSize; i++)
             {
-                Console.Write(" |");
+                Console.Write("|");
                 for (int j = 0; j < this.boardSize; j++)
                 {
                     Console.Write("  " + (char)(this.boardGame[i, j].GetCellState()) + "  ");
@@ -98,12 +101,12 @@ namespace exercice1
                         Console.Write("|");
                     }
                 }
-                Console.Write("\n |");
+                Console.Write("\n           |");
                 for (int k = 0; k < this.boardSize - 1; k++)
                 {
                     Console.Write("-----+");
                 }
-                Console.Write("-----|\n");
+                Console.Write("-----|\n           ");
             }
             Console.Write(" ");
             for (int i = 0; i < this.boardSize; i++)
@@ -111,10 +114,11 @@ namespace exercice1
                 Console.Write("======");
             }
             Console.Write("\n");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         /// <summary>
-        /// 
+        /// Called to change the state of a Cell in the Board when a player plays.
         /// </summary>
         /// <param name="player"></param>
         /// <param name="fieldNumber"></param>
@@ -127,14 +131,9 @@ namespace exercice1
             }
             else
             {
-                Console.WriteLine("This place is taken. Select the field again: \n");
+                Console.WriteLine("     | This place is taken. Select the field again: ");
                 return false;
             }
-        }
-
-        public void ClearBoard()
-        {
-            Console.Clear();
         }
     }
 }
