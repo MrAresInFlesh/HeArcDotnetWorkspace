@@ -99,7 +99,7 @@ namespace exercice1
 
         public void EndGame()
         {
-            Console.WriteLine("\n Press [q] to quit");
+            Console.WriteLine("\n       | Press [q] to quit");
             if(Console.KeyAvailable)
             {
                 if (Console.ReadKey().Key == ConsoleKey.Q)
@@ -164,33 +164,49 @@ namespace exercice1
             bool check = false;
             for (int i = 0; i < board.Size(); ++i)
             {
+                int xCounter = 0;
+                int oCounter = 0;
                 for (int j = 0; j < board.Size(); ++j)
 			    {
-                    if(i+1 == this.board.Size())
+                    if (j+1 == board.Size())
                     {
-                        Console.WriteLine("(i,j):" + i + ", " + j + "== (i:" + i + ", j-1:" +  (j-1)  + ")" +
-                            (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == board.boardGame[i, j-1].GetCellState()));
-                        if (board.boardGame[i, j].GetCellState() != CellState.E &&
-                            board.boardGame[i, j].GetCellState() == board.boardGame[i, j-1].GetCellState())
+                        // debug : Console.WriteLine("(i,j):" + i + ", " + j + " == (i:" + i + ", j-1: " +  j  + ")" +
+                        (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.X));
+                        if (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.X)
                         {
-                            Console.WriteLine("Columns win");
-                            check = true;
+                            xCounter++;
+                            // debug : Console.WriteLine("x counter : " + xCounter);
+                        }
+                        // debug : Console.WriteLine(board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.O);
+                        if (board.boardGame[i, j].GetCellState() != CellState.E && 
+                            board.boardGame[i, j].GetCellState() == CellState.O)
+                        {
+                            oCounter++;
+                            // debug :  Console.WriteLine("o counter : " + oCounter);
                         }
                     }
-                    else if(i+1 < this.board.Size())
+                    else if(j+1 < this.board.Size())
                     {
-                        Console.WriteLine("(i,j):" + i + ", " + j + "== (i+1:" + (i+1) + ", j:" +  j  + ")" + 
-                            (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == board.boardGame[i, j+1].GetCellState()));
+                        // debug : Console.WriteLine("(i,j):" + i + ", " + j + " == (i:" + i + ", j: " +  j  + ")" + 
+                        (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.X));
                         if (board.boardGame[i, j].GetCellState() != CellState.E &&
-                            board.boardGame[i, j].GetCellState() == board.boardGame[i, j+1].GetCellState())
+                            board.boardGame[i, j].GetCellState() == CellState.X)
                         {
-                            Console.WriteLine("Columns win");
-                            check = true;
+                            xCounter++;
+                            // debug : Console.WriteLine("x counter : " + xCounter);
+                        }
+                        // debug : Console.WriteLine(board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.O);
+                        if (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.O)
+                        {
+                            oCounter++;
+                            // debug : Console.WriteLine("o counter : " + oCounter);
                         }
                     }
                     else check = false;
-			    }
-                Console.WriteLine("Check : " + check);
+                    if (oCounter >= this.board.Size()) check = true;
+                    if (xCounter >= this.board.Size()) check = true;
+                }
+                // Console.WriteLine("Check : " + check);
             }
             return check;
         }
