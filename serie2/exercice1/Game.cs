@@ -77,7 +77,6 @@ namespace exercice1
             char[] inputs = Console.ReadLine().ToCharArray();
             int deltaValueFromKeys = 48;
             int cellInputI, cellInputJ = -1;
-
             try
             {
                 (cellInputI, cellInputJ) = (Convert.ToInt32((inputs.GetValue(1))) - deltaValueFromKeys, Convert.ToInt32((inputs.GetValue(3))) - deltaValueFromKeys); 
@@ -107,16 +106,25 @@ namespace exercice1
             }
         }
 
+        /// <summary>
+        /// Called to check on the victory conditions of the game.
+        /// </summary>
+        /// <returns></returns>
         public bool Update()
         {
             board.Display();
-            //if     (EndGameDraw(this.board))        return this.gameOver = true;
-            if(EndGameColumns(this.board))     return this.gameOver = true;
-            //else if(EndGameDiagonals(this.board))   return this.gameOver = true;
-            else if(EndGameRows(this.board))        return this.gameOver = true;
+            if(EndGameDraw(this.board)) return this.gameOver = true;
+            if(EndGameColumns(this.board)) return this.gameOver = true;
+            else if(EndGameDiagonals(this.board)) return this.gameOver = true;
+            else if(EndGameRows(this.board)) return this.gameOver = true;
             else return false;
         }
 
+        /// <summary>
+        /// Check if each Cell in the board has a value. If it's true, then it's a draw.
+        /// </summary>
+        /// <param name="board"></param>
+        /// <returns></returns>
         public bool EndGameDraw(Board board)
         {
             bool check = false;
@@ -136,30 +144,71 @@ namespace exercice1
             return check;
         }
 
-        public bool EndGameRows(Board board)
+        /// <summary>
+        /// Check for each columns if the victory condition is good. Meaning that there is n same symbols in the 
+        /// same columns, with n being the size of the board.
+        /// </summary>
+        /// <param name="board"></param>
+        /// <returns></returns>
+        public bool EndGameColumns(Board board)
         {
             bool check = false;
-            for (int j = 0; j < board.Size()-1; j++)
+            for (int i = 0; i < board.Size(); ++i)
             {
-                for (int i = 0; i < board.Size()-1; i++)
-			    {
-                    if (board.boardGame[i, j].GetCellState() != CellState.E &&
-                        board.boardGame[i, j].GetCellState() == board.boardGame[i, j+1].GetCellState())
+                int xCounter = 0;
+                int oCounter = 0;
+                for (int j = 0; j < board.Size(); ++j)
+                {
+                    if (j + 1 == board.Size())
                     {
-                        Console.WriteLine("Rows win" + board.Size());
-                        check = true;
+                        // debug : Console.WriteLine("(i,j):" + i + ", " + j + " == (i:" + i + ", j-1: " +  j  + ")" +
+                        // (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.X));
+                        if (board.boardGame[j, i].GetCellState() != CellState.E && board.boardGame[j, i].GetCellState() == CellState.X)
+                        {
+                            xCounter++;
+                            Console.WriteLine("x counter : " + xCounter);
+                        }
+                        // debug : Console.WriteLine(board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.O);
+                        if (board.boardGame[j, i].GetCellState() != CellState.E &&
+                            board.boardGame[j, i].GetCellState() == CellState.O)
+                        {
+                            oCounter++;
+                            Console.WriteLine("o counter : " + oCounter);
+                        }
                     }
-                    else 
+                    else if(j+1 < this.board.Size())
                     {
-                        check = false;
-                        break;
+                        // debug : Console.WriteLine("(i,j):" + i + ", " + j + " == (i:" + i + ", j: " +  j  + ")" + 
+                        // (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.X));
+                        if (board.boardGame[j, i].GetCellState() != CellState.E &&
+                            board.boardGame[j, i].GetCellState() == CellState.X)
+                        {
+                            xCounter++;
+                            Console.WriteLine("x counter : " + xCounter);
+                        }
+                        // debug : Console.WriteLine(board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.O);
+                        if (board.boardGame[j, i].GetCellState() != CellState.E && board.boardGame[j, i].GetCellState() == CellState.O)
+                        {
+                            oCounter++;
+                            Console.WriteLine("o counter : " + oCounter);
+                        }
                     }
-			    }
+                    else check = false;
+                    if (oCounter >= this.board.Size()) check = true;
+                    if (xCounter >= this.board.Size()) check = true;
+                }
+                // Console.WriteLine("Check : " + check);
             }
             return check;
         }
-        
-        public bool EndGameColumns(Board board)
+
+        /// <summary>
+        /// Check for each rows if the victory condition is good. Meaning that there is n same symbols in the
+        /// same row, with n being the size of the board.
+        /// </summary>
+        /// <param name="board"></param>
+        /// <returns></returns>
+        public bool EndGameRows(Board board)
         {
             bool check = false;
             for (int i = 0; i < board.Size(); ++i)
@@ -171,15 +220,14 @@ namespace exercice1
                     if (j+1 == board.Size())
                     {
                         // debug : Console.WriteLine("(i,j):" + i + ", " + j + " == (i:" + i + ", j-1: " +  j  + ")" +
-                        (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.X));
+                        // (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.X));
                         if (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.X)
                         {
                             xCounter++;
                             // debug : Console.WriteLine("x counter : " + xCounter);
                         }
                         // debug : Console.WriteLine(board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.O);
-                        if (board.boardGame[i, j].GetCellState() != CellState.E && 
-                            board.boardGame[i, j].GetCellState() == CellState.O)
+                        if (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.O)
                         {
                             oCounter++;
                             // debug :  Console.WriteLine("o counter : " + oCounter);
@@ -188,9 +236,8 @@ namespace exercice1
                     else if(j+1 < this.board.Size())
                     {
                         // debug : Console.WriteLine("(i,j):" + i + ", " + j + " == (i:" + i + ", j: " +  j  + ")" + 
-                        (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.X));
-                        if (board.boardGame[i, j].GetCellState() != CellState.E &&
-                            board.boardGame[i, j].GetCellState() == CellState.X)
+                        // (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.X));
+                        if (board.boardGame[i, j].GetCellState() != CellState.E && board.boardGame[i, j].GetCellState() == CellState.X)
                         {
                             xCounter++;
                             // debug : Console.WriteLine("x counter : " + xCounter);
