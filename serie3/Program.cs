@@ -14,7 +14,8 @@ namespace serie3
             DataLoader.DataSet dataset = dataLoader.CreateDataSet();
             dataset.DisplayOccurencesOfTargetObjectInColumn("Canton", "VS");
             dataset.DisplayNumberOfDifferentDataInColumn("Canton");
-            dataset.DisplayAllAlphabetically();
+            // dataset.DisplayAllAlphabetically();
+            dataset.DisplayPriceInferiorThan150("TarifAdulte", "TarifEnfant", 110);
         }
     }
 }

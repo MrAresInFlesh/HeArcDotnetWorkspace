@@ -190,34 +190,60 @@ namespace serie3
                 }
             }
 
-            public void DisplayPriceInferiorThan150(String category1, String category2, int n, int m)
+            public void DisplayPriceInferiorThan150(String category1, String category2, int limit)
             {
-                Dictionary<String, List<Data>> keyValuePairs = new Dictionary<String, List<Data>>();
+                Dictionary<String, (String, String)> keyValuePairs = new Dictionary<String, (String, String)>();
 
-                List<Data> listOfValueForCategory1 = new List<Data>();
+                List<String> listOfValueForCategory1 = new List<String>();
+                List<String> listOfValueForCategory2 = new List<String>();
+                List<String> listOfKeysForCategory1 = new List<String>();
                 Console.Write(category1 + " : ");
+
                 this.dataBase.ForEach(data =>
                 {
-
-                    if (data.GetColumn().Contains(category1))
+                    if (data.GetColumn() == "Nom")
                     {
-                        listOfValueForCategory1.Add(data);
+                        Console.WriteLine(data.GetData().ToString());
+                        listOfKeysForCategory1.Add(data.GetData().ToString());
                     }
                 });
 
-                List<Data> listOfValueForCategory2 = new List<Data>();
-                Console.Write(category2 + " : ");
                 this.dataBase.ForEach(data =>
                 {
-                    if (data.GetColumn().Contains(category2))
+                    if (data.GetColumn() == "TarifAdulte")
                     {
-                        listOfValueForCategory2.Add(data);
+                        Console.WriteLine(data.GetData().ToString());
+                        listOfValueForCategory1.Add(data.GetData().ToString());
                     }
                 });
 
+                this.dataBase.ForEach(data =>
+                {
+                    if (data.GetColumn() == "TarifEnfant")
+                    {
+                        Console.WriteLine(data.GetData().ToString());
+                        listOfValueForCategory2.Add(data.GetData().ToString());
+                    }
+                });
 
+                for (int i = 0; i < listOfKeysForCategory1.Count(); i++)
+                {
+                    keyValuePairs.Add(listOfKeysForCategory1.ElementAt(i), 
+                        (listOfValueForCategory1.ElementAt(i),
+                        listOfValueForCategory2.ElementAt(i))
+                        );
+                }
 
-                DataLoader.Each(listOfValueForCategory1, element => Console.Write("[" + element + "]"));
+                Each(keyValuePairs, k => { int value = (int.Parse(k.Value.Item1) * 2 + (int.Parse(k.Value.Item2) * 2));
+                if (value < limit)
+                    Console.WriteLine("Station : " + k.Key +
+                        "Tarif adulte : " + k.Value.Item1 +
+                        " | Tarif enfant : " + k.Value.Item2 +
+                        " | tarif 2 adultes plus 2 enfant = " +
+                        value +
+                        " est inferieur a : " +
+                        limit);
+                });
             }
         }
 
