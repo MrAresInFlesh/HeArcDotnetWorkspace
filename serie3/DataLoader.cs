@@ -151,7 +151,6 @@ namespace serie3
                 }
             }
 
-
             public void DisplayAllAlphabetically()
             {
                 Console.Write("\n|");
@@ -244,6 +243,103 @@ namespace serie3
                         " est inferieur a : " +
                         limit);
                 });
+            }
+
+            /// <summary>
+            /// BONUS:
+            /// Computation to get the stations in the radius defined by the limit parameter.
+            /// </summary>
+            /// <param name="limit"></param>
+            /// <param name="latitude"></param>
+            /// <param name="longitude"></param>
+            /// <returns>IEnumerable<Tuple<String, Double>></returns>
+            public IEnumerable<Tuple<String, Double>> SkiStationNearHeArc(double limit, double latitude, double longitude, bool print=false)
+            {
+                Dictionary<String, (Double, Double)> keyValuePairs = new Dictionary<String, (Double, Double)>();
+
+                List<Double> listOfValueForCategory1 = new List<Double>();
+                List<Double> listOfValueForCategory2 = new List<Double>();
+                List<String> listOfKeys = new List<String>();
+                this.dataBase.ForEach(data =>
+                {
+                    if (data.GetColumn() == "Nom")
+                    {
+                        listOfKeys.Add(data.GetData().ToString());
+                    }
+                });
+
+                this.dataBase.ForEach(data =>
+                {
+                    if (data.GetColumn() == "Longitude")
+                    {
+                        double value = double.Parse(data.GetData().ToString());
+                        listOfValueForCategory1.Add(value);
+                    }
+                });
+
+                this.dataBase.ForEach(data =>
+                {
+                    if (data.GetColumn() == "Latitude")
+                    {
+                        double value = double.Parse(data.GetData().ToString());
+                        listOfValueForCategory2.Add(value);
+                    }
+                });
+
+                for (int i = 0; i < listOfKeys.Count(); i++)
+                {
+                    keyValuePairs.Add(listOfKeys.ElementAt(i),
+                        (listOfValueForCategory1.ElementAt(i),
+                        listOfValueForCategory2.ElementAt(i))
+                        );
+                }
+
+                IEnumerable<Tuple<String, Double>> databaseQuery = from data in keyValuePairs
+                                                    let distance = (DataSet.
+                                                    GetDistance(data.Value.Item1, data.Value.Item2, 
+                                                    longitude, latitude) / 1000)
+                                                    where distance < 150
+                                                    orderby distance ascending
+                                                    select Tuple.Create(data.Key, distance);
+
+                if(print)
+                {
+                    Each(keyValuePairs, k => {
+                        double value = DataSet.
+                        GetDistance(k.Value.Item1, k.Value.Item2, 
+                        longitude, latitude) / 1000;
+                        if (value < limit)
+                            Console.WriteLine("Station : " + k.Key +
+                                "\nLongitude : " + k.Value.Item1 +
+                                " | Latitude : " + k.Value.Item2 +
+                                " | distance between station and the he-arc = " +
+                                value + "[km]" +
+                                " limit fixed : " +
+                                limit + "[km]");
+                    });
+                }
+                return databaseQuery;
+            }
+
+            /// <summary>
+            /// Source : https://stackoverflow.com/questions/6366408/calculating-distance-between-two-latitude-and-longitude-geocoordinates
+            /// </summary>
+            /// <param name="longitude"></param>
+            /// <param name="latitude"></param>
+            /// <param name="otherLongitude"></param>
+            /// <param name="otherLatitude"></param>
+            /// <returns></returns>
+            public static double GetDistance(double longitude, double latitude, double otherLongitude, double otherLatitude)
+            {
+                var rad = (Math.PI / 180.0);
+                var d1 = latitude * rad;
+                var num1 = longitude * rad;
+                var d2 = otherLatitude * rad;
+                var num2 = otherLongitude * rad - num1;
+                var d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) + Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
+
+                return 6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
+
             }
         }
 
