@@ -12,11 +12,26 @@ namespace serie3
             string filename = "SwissSkiDB.csv";
 
             DataLoader dataLoader = new DataLoader(filename, Encoding.UTF7);
-            DataLoader.DataSet dataset = dataLoader.CreateDataSet();
+            DataSet dataset = dataLoader.CreateDataSet();
+            
+            Console.WriteLine("DisplayOccurencesOfTargetObjectInColumn");
+
             dataset.DisplayOccurencesOfTargetObjectInColumn("Canton", "VS");
+
+            Console.WriteLine();
+
             dataset.DisplayNumberOfDifferentDataInColumn("Canton");
-            // dataset.DisplayAllAlphabetically();
-            // dataset.DisplayPriceInferiorThan150("TarifAdulte", "TarifEnfant", 110);
+            
+            Console.WriteLine("DisplayAllAscending()\n");
+            dataset.DisplayAllAscending("Canton");
+
+            Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------\n");
+
+            Console.WriteLine("\nDisplayPriceInferiorThanLimit()\n");
+            dataset.DisplayPriceInferiorThanLimit("TarifAdulte", "TarifEnfant", 110);
+            
+            Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------\n");
+            Console.WriteLine("SkiStationNearHeArc()\n");
             IEnumerable<Tuple<String, Double>> query = dataset.SkiStationNearHeArc(150, 46.997727, 6.938725);
             foreach (Tuple<String, Double> distance in query)
             {
