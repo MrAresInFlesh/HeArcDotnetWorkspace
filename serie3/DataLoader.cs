@@ -92,12 +92,12 @@ namespace serie3
         }
 
         /// <summary>
-        /// 
+        /// Function to load the desired csv file.
         /// </summary>
         /// <param name="filename"></param>
         /// <param name="encoding"></param>
         /// <param name="debug"></param>
-        /// <returns></returns>
+        /// <returns>List<Data> data</returns>
         private List<Data> LoadCsvFile(String filename, Encoding encoding, bool debug=false)
         {
             List<Data> data = new List<Data>();
@@ -123,9 +123,9 @@ namespace serie3
         }
 
         /// <summary>
-        /// Creation of a dataset after the construction of 
+        /// Creation of a dataset after the construction of the List<Data>
         /// </summary>
-        /// <returns></returns>
+        /// <returns>DataSet</returns>
         public DataSet CreateDataSet()
         {
             return new DataSet(this.dataList);

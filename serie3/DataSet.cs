@@ -18,7 +18,7 @@ namespace serie3
 		}
 
 		/// <summary>
-		/// Select the occurence entered as a parameter in your data.
+		/// Select the occurence entered as a parameter in your database.
 		/// </summary>
 		/// <param name="category"></param>
 		/// <param name="dataType"></param>
@@ -39,7 +39,7 @@ namespace serie3
 		}
 
 		/// <summary>
-		/// 
+		/// Return the number of occurence of a certain category of data.
 		/// </summary>
 		/// <param name="category"></param>
 		public void DisplayNumberOfDifferentDataInColumn(String category)
