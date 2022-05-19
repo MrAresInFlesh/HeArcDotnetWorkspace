@@ -88,7 +88,7 @@ namespace serie3
         /// <param name="debug"></param>
         public DataLoader(String filename, Encoding encoding, bool debug=false)
         {
-            this.dataList = LoadCsvFile(filename, encoding);
+            this.dataList = LoadCsvFile(filename, encoding, debug);
         }
 
         /// <summary>
@@ -100,8 +100,18 @@ namespace serie3
         /// <returns>List<Data> data</returns>
         private List<Data> LoadCsvFile(String filename, Encoding encoding, bool debug=false)
         {
+            String path;
             List<Data> data = new List<Data>();
-            StreamReader streamReader = new StreamReader(new FileStream(filename, FileMode.Open), encoding);
+            if (debug)
+            {
+                path = $"../../../{filename}";
+            }
+            else
+            {
+                path = $"{filename}";
+            }
+
+            StreamReader streamReader = new StreamReader(new FileStream(path, FileMode.Open), encoding);
             
             /**
              * Importing columns that will represent the categroy of each cell of the database.

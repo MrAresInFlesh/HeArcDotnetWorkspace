@@ -11,7 +11,7 @@ namespace serie3
         {
             string filename = "SwissSkiDB.csv";
 
-            DataLoader dataLoader = new DataLoader(filename, Encoding.UTF7);
+            DataLoader dataLoader = new DataLoader(filename, Encoding.UTF7, true);
             DataSet dataset = dataLoader.CreateDataSet();
             
             Console.WriteLine("DisplayOccurencesOfTargetObjectInColumn");
